@@ -18,3 +18,12 @@ export function createElement(tag, options = {}) {
 
   return element;
 }
+
+export function createButton(text, onClick, className = 'btn') {
+  return createElement('button', {
+    className,
+    text,
+    attrs: { type: 'button' },
+    on: { click: onClick },
+  });
+}

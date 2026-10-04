@@ -1,8 +1,8 @@
-import { createDeck } from './cards.js';
+import { createDeck, TOTAL_PAIRS } from './cards.js';
 
 const MISMATCH_DELAY = 1000;
 
-export function createGame({ onChange }) {
+export function createGame({ onChange, onWin }) {
   const state = { cards: [], moves: 0, pairs: 0 };
   let openedCards = [];
   let timerId = null;
@@ -51,6 +51,8 @@ export function createGame({ onChange }) {
     if (openedCards.length === 2) checkPair();
 
     onChange();
+
+    if (state.pairs === TOTAL_PAIRS) onWin(state.moves);
   }
 
   return { state, start, flip };

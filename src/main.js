@@ -2,12 +2,17 @@ import './style.css';
 import { createElement, createButton } from './dom.js';
 import { TOTAL_PAIRS } from './cards.js';
 import { createGame } from './game.js';
+import { openVictory } from './victory.js';
 
 const movesValue = createElement('span');
 const pairsValue = createElement('span');
 const board = createElement('div', { className: 'board' });
 
-const game = createGame({ onChange: render });
+const game = createGame({ onChange: render, onWin: handleWin });
+
+function handleWin(moves) {
+  openVictory(moves, game.start);
+}
 
 function createCardElement(card) {
   const button = createElement('button', {

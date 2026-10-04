@@ -3,6 +3,8 @@ import { createElement, createButton } from './dom.js';
 import { TOTAL_PAIRS } from './cards.js';
 import { createGame } from './game.js';
 import { openVictory } from './victory.js';
+import { openLeaderboard } from './leaderboard.js';
+import { saveResult } from './storage.js';
 
 const movesValue = createElement('span');
 const pairsValue = createElement('span');
@@ -11,6 +13,7 @@ const board = createElement('div', { className: 'board' });
 const game = createGame({ onChange: render, onWin: handleWin });
 
 function handleWin(moves) {
+  saveResult(moves);
   openVictory(moves, game.start);
 }
 
@@ -47,7 +50,10 @@ function render() {
 
 const header = createElement('header', {
   className: 'header',
-  children: [createButton('Новая игра', game.start)],
+  children: [
+    createButton('Новая игра', game.start),
+    createButton('Таблица лидеров', openLeaderboard),
+  ],
 });
 
 const main = createElement('main', {
